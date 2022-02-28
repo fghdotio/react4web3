@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 
-import './App.scss';
+import './App.scss'
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
         >
           React
         </a>
-        <Button type = "primary">Button</Button>
+        <Button type="primary">Button</Button>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
