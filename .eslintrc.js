@@ -34,5 +34,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'no-unused-vars': 'warn',
   },
 }

@@ -25,9 +25,15 @@ yarn add craco-less
 ```
 
 
-- [ ] router
+- router
+    - `<Link>` 触发的跳转不会重新加载所有资源；浏览器地址栏直接输入 url 会重新加载所有资源，此时前进后退也会重新加载
+
+- [ ] context
+    - auth: https://reactrouter.com/docs/en/v6/examples/auth
 
 - [ ] es6 async await
+
+- [ ] i18n
 
 ## [ESLint](https://eslint.org/docs/user-guide/getting-started)
 
