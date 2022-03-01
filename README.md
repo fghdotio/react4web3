@@ -31,9 +31,12 @@ yarn add craco-less
 - [ ] context
     - auth: https://reactrouter.com/docs/en/v6/examples/auth
 
-- [ ] es6 async await
+- [x] es6 async await
 
-- [ ] i18n
+- [ ] data hooks
+    - swr
+
+- [ ] i18n，later
 
 ## [ESLint](https://eslint.org/docs/user-guide/getting-started)
 
