@@ -24,17 +24,31 @@ yarn add craco-less
 
 ```
 
+- [ ] wallet
+    - 网络错误提示
+    - [x] 刷新 fake disconnect
+    - [x] `await` 错误的情况（如网络超时，用户 reject）；Promise race 加上超时
+    - metamask 何时需要重新连接
+    - [x] 多账号
+        - // We currently only ever provide a single account
+        - https://docs.metamask.io/guide/getting-started.html#basic-considerations
+        - 监听账号变化事件
+    - 发交易
 
 - router
     - `<Link>` 触发的跳转不会重新加载所有资源；浏览器地址栏直接输入 url 会重新加载所有资源，此时前进后退也会重新加载
+    - https://reactrouter.com/docs/en/v6/getting-started/overview
 
 - [ ] context
     - auth: https://reactrouter.com/docs/en/v6/examples/auth
+    - https://github.com/dai-shi/react-hooks-global-state
 
 - [x] es6 async await
 
 - [ ] data hooks
-    - swr
+    - swr，mock api 分页
+
+- previous hook: https://blog.logrocket.com/accessing-previous-props-state-react-hooks/
 
 - [ ] i18n，later
 
