@@ -3,10 +3,11 @@ import { ethers } from 'ethers'
 import { Button, Modal } from 'antd'
 
 import { useGlobalState, setGlobalState, globalFields } from '../models'
+import someABI, { contractAddress } from './someabi'
 
 // https://chainid.network/chains.json
 // https://chainlist.org/
-const BSC = {
+const BinanceSmartChainMainnet = {
   chainName: 'Binance Smart Chain Mainnet',
   rpcUrls: [
     'https://bsc-dataseed1.binance.org',
@@ -30,6 +31,25 @@ const BSC = {
   },
   chainId: `0x${Number(56).toString(16)}`,
   blockExplorerUrls: ['https://bscscan.com'],
+}
+
+const BinanceSmartChainTestnet = {
+  chainName: 'Binance Smart Chain Testnet',
+  rpcUrls: [
+    'https://data-seed-prebsc-1-s1.binance.org:8545',
+    'https://data-seed-prebsc-2-s1.binance.org:8545',
+    'https://data-seed-prebsc-1-s2.binance.org:8545',
+    'https://data-seed-prebsc-2-s2.binance.org:8545',
+    'https://data-seed-prebsc-1-s3.binance.org:8545',
+    'https://data-seed-prebsc-2-s3.binance.org:8545',
+  ],
+  nativeCurrency: {
+    name: 'Binance Chain Native Token',
+    symbol: 'tBNB',
+    decimals: 18,
+  },
+  chainId: `0x${Number(97).toString(16)}`,
+  blockExplorerUrls: ['https://testnet.binance.org/faucet-smart'],
 }
 
 function Ether() {
@@ -60,7 +80,7 @@ function Ether() {
   const handleConnectMetamask = async () => {
     try {
       let metamaskTimeout
-      var provider = new ethers.providers.Web3Provider(window.ethereum)
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
       let network = await Promise.race([
         provider.getNetwork(),
         new Promise((_, reject) => {
@@ -68,12 +88,14 @@ function Ether() {
         }),
       ])
       clearTimeout(metamaskTimeout)
-      if (network.chainId !== Number(BSC.chainId)) {
+      if (network.chainId !== Number(BinanceSmartChainTestnet.chainId)) {
         // 切换（添加）网络不成功不会抛错
-        await provider.send('wallet_addEthereumChain', [{ ...BSC }])
+        await provider.send('wallet_addEthereumChain', [
+          { ...BinanceSmartChainTestnet },
+        ])
       }
       network = await provider.getNetwork()
-      if (network.chainId !== Number(BSC.chainId)) {
+      if (network.chainId !== Number(BinanceSmartChainTestnet.chainId)) {
         throw 'switch network failed'
       }
       const res = await provider.send('eth_requestAccounts', [])
@@ -81,6 +103,11 @@ function Ether() {
       setGlobalState(globalFields.ADDRESS, res[0])
       setModalVisibility(false)
     } catch (e) {
+      /*Error: underlying network changed (event="changed", network={"chainId":43114,"name":"unknown"}, detectedNetwork={"name":"bnb","chainId":56,"ensAddress":null,"_defaultProvider":null}, code=NETWORK_ERROR, version=providers/5.5.3)
+      at Logger.makeError (index.ts:207:1)
+      at Web3Provider.<anonymous> (base-provider.ts:968:1)
+      at Generator.next (<anonymous>)
+      at fulfilled (_version.ts:1:1)*/
       console.log(e)
     }
   }
@@ -95,6 +122,24 @@ function Ether() {
     console.log(res)
   }
 
+  const handleSignMessage = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    // console.log(address)
+    // const addressBytes = ethers.utils.arrayify(address)
+    // const signature = await signer.signMessage(addressBytes)
+    // console.log(signature)
+    let bscBalance = await provider.getBalance(address)
+    console.log(ethers.utils.formatEther(bscBalance))
+
+    const someContract = new ethers.Contract(contractAddress, someABI, provider)
+    // const someContractWithSigner = someContract.connect(signer)
+    // const res = await someContractWithSigner.set(1)
+    // console.log(res)
+    const num = await someContract.num()
+    console.log(num.toNumber())
+  }
+
   return (
     <Fragment>
       <div>
@@ -103,6 +148,9 @@ function Ether() {
             <span>{address}</span>
             <Button type="primary" onClick={handleLogout}>
               Logout
+            </Button>
+            <Button type="primary" onClick={handleSignMessage}>
+              Sign public key
             </Button>
           </div>
         ) : (

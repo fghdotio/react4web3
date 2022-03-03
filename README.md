@@ -24,6 +24,8 @@ yarn add craco-less
 
 ```
 
+- [ ] 前端的角度需要的接口
+
 - [ ] wallet
     - 网络错误提示
     - [x] 刷新 fake disconnect
@@ -32,21 +34,27 @@ yarn add craco-less
     - [x] 多账号
         - // We currently only ever provide a single account
         - https://docs.metamask.io/guide/getting-started.html#basic-considerations
-        - 监听账号变化事件
-    - 发交易
+        - [x] 监听账号变化事件
+        - 监听 disconnect，要做，多账号还要能切换到下一个账号
+    - 发交易（查询交易要不要签名）
+        - https://docs.ethers.io/v5/api/contract/example/#example-erc-20-contract--connecting-to-a-contract--erc20contract
+        - https://docs.ethers.io/v5/getting-started/#getting-started--contracts
+    - 签名信息表示身份（公钥加时间戳，返回时吧公钥也返回来做校验，时间戳防止重放，会有弹窗，jwt）
+        - ca 的作用是将公钥和真实的用户绑定起来（真实的用户信息可以比较方便地甄别，public knowledge）
 
 - router
     - `<Link>` 触发的跳转不会重新加载所有资源；浏览器地址栏直接输入 url 会重新加载所有资源，此时前进后退也会重新加载
     - https://reactrouter.com/docs/en/v6/getting-started/overview
 
-- [ ] context
+- [ ] context, later
     - auth: https://reactrouter.com/docs/en/v6/examples/auth
-    - https://github.com/dai-shi/react-hooks-global-state
+    - [x] https://github.com/dai-shi/react-hooks-global-state
 
 - [x] es6 async await
 
 - [ ] data hooks
     - swr，mock api 分页
+    - auth 后加载授权内容
 
 - previous hook: https://blog.logrocket.com/accessing-previous-props-state-react-hooks/
 
