@@ -132,12 +132,23 @@ function Ether() {
     let bscBalance = await provider.getBalance(address)
     console.log(ethers.utils.formatEther(bscBalance))
 
-    const someContract = new ethers.Contract(contractAddress, someABI, provider)
+    // const someContract = new ethers.Contract(contractAddress, someABI, provider)
     // const someContractWithSigner = someContract.connect(signer)
     // const res = await someContractWithSigner.set(1)
     // console.log(res)
-    const num = await someContract.num()
-    console.log(num.toNumber())
+    // const num = await someContract.num()
+    // console.log(num.toNumber())
+
+    // https://github.com/ethers-io/ethers.js/issues/511
+    const someContract = new ethers.Contract(
+      contractAddress,
+      someABI,
+      signer.connectUnchecked()
+    )
+    const tx = await someContract.set(1)
+    console.log(tx)
+    const res = await tx.wait()
+    console.log(res)
   }
 
   return (

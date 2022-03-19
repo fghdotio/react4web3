@@ -24,7 +24,14 @@ yarn add craco-less
 
 ```
 
-- [ ] 前端的角度需要的接口
+- [ ] storage 相关
+- [ ] 仅签名需要 gas 吗；access token 的更新逻辑，过期时间多久，refresh_token 保存
+
+- [ ] 重看 react hooks https://github.com/SlackBuffer/under-react；重看 function components
+
+- [ ] npm 引用 github 项目web3-react 内部包，https://github.com/NoahZinsmeister/web3-react
+    - uniswap interface 这样做
+
 
 - [ ] wallet
     - 网络错误提示
@@ -36,6 +43,9 @@ yarn add craco-less
         - https://docs.metamask.io/guide/getting-started.html#basic-considerations
         - [x] 监听账号变化事件
         - 监听 disconnect，要做，多账号还要能切换到下一个账号
+        - 监听网络切换
+        - 刷新保持
+            - pancakeswap: localstorage `connectorIdv2: injected`
     - 发交易（查询交易要不要签名）
         - https://docs.ethers.io/v5/api/contract/example/#example-erc-20-contract--connecting-to-a-contract--erc20contract
         - https://docs.ethers.io/v5/getting-started/#getting-started--contracts
